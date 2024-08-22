@@ -5,6 +5,11 @@ struct Point {
 
 enum Message {
     // TODO: Implement the message variant types based on their usage below.
+    Resize{width: i32, height: i32},
+    Move(Point),
+    Echo(String),
+    ChangeColor(i32, i32, i32),
+    Quit,
 }
 
 struct State {
@@ -42,6 +47,13 @@ impl State {
     fn process(&mut self, message: Message) {
         // TODO: Create a match expression to process the different message
         // variants using the methods defined above.
+        match message {
+            Message::Resize{ width, height} => { self.resize(width as u64, height as u64) }
+            Message::Move(point) => { self.move_position(point)}
+            Message::Echo(s) => { self.echo(s) }
+            Message::ChangeColor(red, green, blue) => { self.change_color(red as u8, green as u8, blue as u8) }
+            Message::Quit => { self.quit() }
+        }
     }
 }
 
